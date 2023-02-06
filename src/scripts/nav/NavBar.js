@@ -5,6 +5,7 @@ export const NavBar = () => {
 
 addEventListener("click", (clickEvent) => {
     if (clickEvent.target.id === "btn__logout") {
-        localStorage.setItem(null, null)
+        localStorage.removeItem("gg_user")
+        dispatchEvent(new CustomEvent("stateChanged"))
     }
 })
