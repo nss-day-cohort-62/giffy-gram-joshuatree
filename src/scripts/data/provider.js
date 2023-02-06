@@ -36,3 +36,31 @@ export const sendNewUser = (newUser) => {
             document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged"))
         })
 }
+
+export const fetchPosts = () => {
+    return fetch(`${apiURL}/posts`)
+    .then(res => res.json())
+    .then(data => {
+        applicationState.posts = data
+    })
+}
+
+export const getPosts = () => {
+    return applicationState.posts.map(post => ({...post}))
+}
+
+export const sendPost = (newPost) => {
+    const fetchOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newPost)
+    }
+
+    return fetch(`${apiURL}/posts`, fetchOptions)
+        .then(res => res.json())
+        .then(() => {
+            document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged"))
+        })
+}
