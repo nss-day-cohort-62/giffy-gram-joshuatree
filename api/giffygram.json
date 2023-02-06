@@ -36,5 +36,39 @@
       "password": "wesley",
       "id": 6
     }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "The Queen",
+      "url": "https://media.giphy.com/media/q9ioMoxQPih9K/giphy.gif",
+      "story": "The greatest songwriter of all time.",
+      "date": "2/2/2023",
+      "userId": 5
+    },
+    {
+      "id": 2,
+      "title": "Dancing Skeleton",
+      "url": "https://media.giphy.com/media/3ohhwfAa9rbXaZe86c/giphy.gif",
+      "story": "Is it Friday yet?",
+      "date": "1/1/2022",
+      "userId": 4
+    },
+    {
+      "title": "Fetch",
+      "url": "https://media.giphy.com/media/XBEoaajXTXaALzawSn/giphy.gif",
+      "story": "trying to make \"fetch\" happen",
+      "date": "2/6/2023",
+      "userId": 6,
+      "id": 3
+    },
+    {
+      "title": "Hurray",
+      "url": "https://media.giphy.com/media/CUFjd7IbtTo5O/giphy.gif",
+      "story": "Last minutes of class",
+      "date": "2/6/2023",
+      "userId": 6,
+      "id": 4
+    }
   ]
 }
