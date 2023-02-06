@@ -4,7 +4,7 @@ export const PostEntry = () => {
     
     return `
     <button id="formV">Post Your Gif</button>
-    <div id="postForm">
+    <div id="postForm" style="display:none">
             <form>
                 <fieldset>
                     <label for="title">Title:</label>
@@ -46,14 +46,14 @@ addEventListener("click", clickEvent => {
     }
 })
 
-// const btn = document.getElementById("formV")
 
-// btn.addEventListener("click", () => {
-//     const form = document.getElementById("postForm")
-//     if (form.style.visibility === "hidden") {
-//         form.style.visibility = "visible"
-//     }
-//     else {
-//         form.style.visibility = "hidden"
-//     }
-// })
+addEventListener("click", clickEvent => {
+    if ((clickEvent.target.id === "formV") || (clickEvent.target.id === "cancelButton")) {
+    const form = document.getElementById("postForm")
+    if (form.style.display === "none") {
+        form.style.display = "block"
+    } else {
+        form.style.display = "none"
+    }
+}
+})
