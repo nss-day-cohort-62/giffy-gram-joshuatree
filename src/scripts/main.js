@@ -18,3 +18,7 @@ async function renderApp() {
 }
 
 renderApp()
+
+addEventListener("stateChanged", () => {
+    renderApp()
+})
