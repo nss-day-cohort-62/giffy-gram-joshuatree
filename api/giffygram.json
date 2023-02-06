@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Mustafa Volkman",
+      "email": "mustafa@volkman.com",
+      "password": "mustafa"
+    },
+    {
+      "id": 2,
+      "name": "Rhoda Abernathy",
+      "email": "rhoda@abernathy.com",
+      "password": "rhoda"
+    },
+    {
+      "id": 3,
+      "name": "Maybell Ankunding",
+      "email": "maybell@ankunding.com",
+      "password": "maybell"
+    },
+    {
+      "name": "Neil MacLean",
+      "email": "neil@maclean.com",
+      "password": "neil",
+      "id": 4
+    },
+    {
+      "name": "Freya Potempa",
+      "email": "freya@potempa.com",
+      "password": "freya",
+      "id": 5
+    },
+    {
+      "name": "Wesley Hughes",
+      "email": "wesley@hughes.com",
+      "password": "wesley",
+      "id": 6
+    }
+  ]
+}
