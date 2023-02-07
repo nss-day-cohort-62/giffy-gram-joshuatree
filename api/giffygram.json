@@ -85,39 +85,23 @@
   ],
   "favorites": [
     {
-      "userId": 8,
-      "postId": 1,
+      "userId": 4,
+      "postId": 2,
+      "id": 1
+    }
+  ],
+  "messages": [
+    {
+      "senderId": 4,
+      "receiverId": 7,
+      "content": "Hi Keith!\nBye Keith!",
       "id": 1
     },
     {
-      "userId": 8,
-      "postId": 1,
+      "senderId": 7,
+      "receiverId": 4,
+      "content": "Hey Neil!\nBye Neil!",
       "id": 2
-    },
-    {
-      "userId": 8,
-      "postId": 2,
-      "id": 3
-    },
-    {
-      "userId": 8,
-      "postId": 1,
-      "id": 4
-    },
-    {
-      "userId": 8,
-      "postId": 1,
-      "id": 5
-    },
-    {
-      "userId": 8,
-      "postId": 3,
-      "id": 6
-    },
-    {
-      "userId": 4,
-      "postId": 4,
-      "id": 8
     }
   ]
 }
