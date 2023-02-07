@@ -35,6 +35,18 @@
       "email": "wesley@hughes.com",
       "password": "wesley",
       "id": 6
+    },
+    {
+      "name": "Keith Potempa",
+      "email": "keith@potempa.com",
+      "password": "keith",
+      "id": 7
+    },
+    {
+      "name": "Vision Filler",
+      "email": "vision@filler.com",
+      "password": "vision",
+      "id": 8
     }
   ],
   "posts": [
@@ -70,5 +82,7 @@
       "userId": 6,
       "id": 4
     }
+  ],
+  "favorites": [
   ]
 }
