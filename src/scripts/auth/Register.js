@@ -58,7 +58,7 @@ addEventListener("click", clickEvent => {
         }
 
         sendNewUser(newUserToAPI)
-        getUsers() //maybe this doesn't need to be here? it does for now, but maybe not later?
+     //   getUsers() //maybe this doesn't need to be here? it does for now, but maybe not later?
         dispatchEvent(new CustomEvent("stateChanged"))
     }
 })

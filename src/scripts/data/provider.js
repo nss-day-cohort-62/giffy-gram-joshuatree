@@ -64,3 +64,19 @@ export const sendPost = (newPost) => {
             document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged"))
         })
 }
+
+export const sendFavorite = (newFavorite) => {
+    const fetchOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newFavorite)
+    }
+
+    return fetch(`${apiURL}/favorites`, fetchOptions)
+    .then(res => res.json())
+    .then(() => {
+        document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged"))
+    })
+}
