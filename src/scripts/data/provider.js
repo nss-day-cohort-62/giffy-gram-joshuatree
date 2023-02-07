@@ -103,3 +103,27 @@ export const deleteFave = (fave) => {
         }
     )
 }
+
+export const fetchMessages = () => {
+    return fetch(`${apiURL}/messages`)
+        .then(res => res.json())
+        .then(data => {
+            applicationState.messages = data
+        })
+}
+
+export const getMessages = () => applicationState.messages.map(message => ({...message}))
+
+export const sendMessages = (newMessage) => {
+    const fetchOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newMessage)
+    }
+
+    return fetch(`${apiURL}/messages`, fetchOptions)
+        .then(res => res.json())
+        .then(() => document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged")))
+}
