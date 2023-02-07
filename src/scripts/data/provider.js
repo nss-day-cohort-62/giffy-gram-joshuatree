@@ -80,3 +80,26 @@ export const sendFavorite = (newFavorite) => {
         document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged"))
     })
 }
+
+export const fetchFavorites = () => {
+    return fetch(`${apiURL}/favorites`)
+    .then(res => res.json())
+    .then(data =>{
+        applicationState.favorites = data
+    })
+}
+
+export const getFavorites = () => {
+    return applicationState.favorites.map(favorite => ({...favorite}))
+}
+
+export const deleteFave = (fave) => {
+    return fetch (`${apiURL}/favorites/${fave}
+    `, {method: "DELETE"})
+    .then(
+        () => {
+
+            document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged"))
+        }
+    )
+}

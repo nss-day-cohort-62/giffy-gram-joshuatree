@@ -84,5 +84,40 @@
     }
   ],
   "favorites": [
+    {
+      "userId": 8,
+      "postId": 1,
+      "id": 1
+    },
+    {
+      "userId": 8,
+      "postId": 1,
+      "id": 2
+    },
+    {
+      "userId": 8,
+      "postId": 2,
+      "id": 3
+    },
+    {
+      "userId": 8,
+      "postId": 1,
+      "id": 4
+    },
+    {
+      "userId": 8,
+      "postId": 1,
+      "id": 5
+    },
+    {
+      "userId": 8,
+      "postId": 3,
+      "id": 6
+    },
+    {
+      "userId": 4,
+      "postId": 4,
+      "id": 8
+    }
   ]
 }
