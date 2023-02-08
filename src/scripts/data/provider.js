@@ -2,8 +2,9 @@ const apiURL = "http://localhost:8088"
 const applicationElement = document.querySelector(".giffygram")
 
 
-const applicationState = {
+export const applicationState = {
     currentUser: {},
+    chosenUser: {},
     feed: {
         chosenUser: null,
         displayFavorites: false,
@@ -126,4 +127,8 @@ export const sendMessages = (newMessage) => {
     return fetch(`${apiURL}/messages`, fetchOptions)
         .then(res => res.json())
         .then(() => document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged")))
+}
+
+export const setChosenUser = (id) => {
+    applicationState.chosenUser.userId = id
 }

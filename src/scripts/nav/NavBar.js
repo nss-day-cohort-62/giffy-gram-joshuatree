@@ -1,3 +1,5 @@
+import { applicationState } from "../data/provider.js"
+
 export const NavBar = () => {
     return `
     <button id="btn__logout">Logout</button>
@@ -21,6 +23,7 @@ addEventListener("click", clickEvent => {
 
 addEventListener("click", clickEvent => {
     if (clickEvent.target.id === "homeButton") {
+        applicationState.chosenUser = {}
         dispatchEvent(new CustomEvent("goHome"))
     }
 })
