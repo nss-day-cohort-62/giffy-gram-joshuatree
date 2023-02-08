@@ -5,6 +5,7 @@ const applicationElement = document.querySelector(".giffygram")
 export const applicationState = {
     currentUser: {},
     chosenUser: {},
+    checkedFavorites: false,
     feed: {
         chosenUser: null,
         displayFavorites: false,
@@ -133,16 +134,6 @@ export const setChosenUser = (id) => {
     applicationState.chosenUser.userId = id
 }
 
-export const matchedUserFavorites = (id) => {
-    const favorites = getFavorites()
-    const posts = getPosts()
-    const userFavorites = favorites.filter(favorite => favorite.userId === id)
-    const matchedPostToFave = (userFave) => {
-        const userFavePost = posts.find(post => post.id === userFave.postId)
-        return userFavePost
-    }
-    return `${userFavorites.map(userFave => {
-        return `${matchedPostToFave(userFave)}`
-    })}
-    `
+export const setCheckedFavorites = () => {
+    applicationState.checkedFavorites = true
 }

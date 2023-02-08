@@ -3,7 +3,7 @@ import { MessageList } from "./friends/DirectMessage.js"
 import { MessageForm } from "./message/MessageForm.js"
 import { Footer } from "./nav/Footer.js"
 import { NavBar } from "./nav/NavBar.js"
-
+import { PostEntry } from "./feed/PostEntry.js"
 
 export const GiffyGram = () => {
 
@@ -11,6 +11,8 @@ export const GiffyGram = () => {
     return `
     ${NavBar()}
     <h1>Giffygram</h1>
+    ${MessageForm()}
+    ${PostEntry()}
     ${PostList()}
     ${Footer()}`
 }

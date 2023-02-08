@@ -88,6 +88,11 @@
       "userId": 4,
       "postId": 2,
       "id": 1
+    },
+    {
+      "userId": 4,
+      "postId": 1,
+      "id": 2
     }
   ],
   "messages": [

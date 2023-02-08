@@ -24,6 +24,7 @@ addEventListener("click", clickEvent => {
 addEventListener("click", clickEvent => {
     if (clickEvent.target.id === "homeButton") {
         applicationState.chosenUser = {}
+        applicationState.checkedFavorites = false
         dispatchEvent(new CustomEvent("goHome"))
     }
 })
