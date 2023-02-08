@@ -3,40 +3,57 @@ import { PostEntry } from "./PostEntry.js";
 import { MessageForm } from "../message/MessageForm.js";
 
 export const PostList = () => {
+    const users = getUsers()
     const posts = getPosts()
     const favorites = getFavorites()
     const currentUser = parseInt(localStorage.getItem("gg_user"))
     const chosenUserId = applicationState.chosenUser.userId
 
     const matchPostToUser = (post) => {
-    const users = getUsers()
-    const matchedUser = users.find(user => user.id === post.userId) 
-    return `<a class="filterPostByUser" id="userfilter--${matchedUser.id}">${matchedUser.name}</a>`
-}
+        const matchedUser = users.find(user => user.id === post.userId) 
+        return `<a class="filterPostByUser" id="userfilter--${matchedUser.id}">${matchedUser.name}</a>`
+    }
 
 
     const postsByUser = (matchedUserId) => {
-    const users = getUsers()
-    const userPosts = posts.filter(post => post.userId === matchedUserId)
-    const matchingUser = users.find(user => user.id === matchedUserId)
+        const userPosts = posts.filter(post => post.userId === matchedUserId)
+        const matchingUser = users.find(user => user.id === matchedUserId)
 
-    return `
-    <div class="postByUserList">
-
-    ${userPosts.map(post => {
         return `
-        <div class="post" id="post--${post.id}">
-            <h3>${post.title}</h3>
-            <img src="${post.url}" alt="A gif" />
-            <p>${post.story}</p>
-            <p>Posted by ${matchingUser.name} on ${post.date}</p> 
-        </div>`
-    }).join("")}
+        <div class="postByUserList">
 
-    </div > `
-}
+        ${userPosts.map(post => {
+            return `
+            <div class="post" id="post--${post.id}">
+                <h3>${post.title}</h3>
+                <img src="${post.url}" alt="A gif" />
+                <p>${post.story}</p>
+                <p>Posted by ${matchingUser.name} on ${post.date}</p> 
+            </div>`
+        }).join("")}
 
-const changeFavoriteColor = (post) => {
+        </div > `
+    }
+
+    const matchedUserFavorites = (id) => {
+        const userFavorites = favorites.filter(favorite => favorite.userId === id)
+        const currentUserObject = users.find(user => user.id === id)
+        const matchedPostToFave = (userFave) => {
+            const userFavePost = posts.find(post => post.id === userFave.postId)
+            return `
+            <div class="post" id="post--${userFavePost.id}">
+                <h3>${userFavePost.title}</h3>
+                <img src="${userFavePost.url}" alt="A gif" />
+                <p>${userFavePost.story}</p>
+                <p>Posted by ${currentUserObject.name} on ${userFavePost.date}</p> 
+            </div>`
+        }
+        return userFavorites.map(userFave => {
+            return matchedPostToFave(userFave)
+        }).join("")
+    }
+
+    const changeFavoriteColor = (post) => {
         const userFavorites = favorites.filter(favorite => favorite.userId === currentUser)
         if (userFavorites.find(userFave => userFave.postId === post.id)) {
             return 'src="../images/favorite-star-yellow.svg" class="yellow"'
@@ -45,10 +62,26 @@ const changeFavoriteColor = (post) => {
         }
     }
 
-return `
-${MessageForm()}
-${PostEntry()}
+    if (chosenUserId) {
+        return postsByUser(chosenUserId)
+    } else if (applicationState.checkedFavorites === true) {
+        return matchedUserFavorites(currentUser)
+    } else {
+        return `<div class="postList">
 
+        ${posts.map(post => {
+            return `
+            <div class="post" id="post--${post.id}">
+            <h3>${post.title}</h3>
+            <img src="${post.url}" alt="A gif" />
+            <p>${post.story}</p>
+            <p>Posted by ${matchPostToUser(post)} on ${post.date}<img ${changeFavoriteColor(post)} id="favorite--${post.id}"></p> 
+            </div>`
+        }).join("")}
+        </div > `}
+    }
+
+/* return `
  ${chosenUserId ? postsByUser(chosenUserId) :
 
 `<div class="postList">
@@ -63,7 +96,7 @@ ${posts.map(post => {
     </div>`
 }).join("")}
 </div > `}`
-}
+} */
 
 addEventListener("click", clickEvent => {
     if (clickEvent.target.className === "filterPostByUser") {
