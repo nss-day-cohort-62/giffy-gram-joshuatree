@@ -132,3 +132,17 @@ export const sendMessages = (newMessage) => {
 export const setChosenUser = (id) => {
     applicationState.chosenUser.userId = id
 }
+
+export const matchedUserFavorites = (id) => {
+    const favorites = getFavorites()
+    const posts = getPosts()
+    const userFavorites = favorites.filter(favorite => favorite.userId === id)
+    const matchedPostToFave = (userFave) => {
+        const userFavePost = posts.find(post => post.id === userFave.postId)
+        return userFavePost
+    }
+    return `${userFavorites.map(userFave => {
+        return `${matchedPostToFave(userFave)}`
+    })}
+    `
+}
