@@ -1,22 +1,56 @@
-import { getUsers, setChosenUser, setCheckedFavorites, applicationState, getPosts } from "../data/provider.js"
+import { getUsers, setChosenUser, setCheckedFavorites, setYear, applicationState, getPosts } from "../data/provider.js"
 
 export const Footer = () => {
-const users = getUsers()
-const posts = getPosts()
-const currentUser = parseInt(localStorage.getItem("gg_user"))
-const chosenUserId = applicationState.chosenUser.userId
-const isSelected = (id) => {
-    if (chosenUserId === id) {
-        return `selected`
-    } else {
-        return ''
+    const users = getUsers()
+    const posts = getPosts()
+    const currentUser = parseInt(localStorage.getItem("gg_user"))
+    const selectedYear = applicationState.chosenYear
+    const isYearSelected = (year) => {
+        if (selectedYear === year) {
+            return 'selected'
+        } else {
+            return ""
+        }
     }
-}
+    const chosenUserId = applicationState.chosenUser.userId
+    const isSelected = (id) => {
+        if (chosenUserId === id) {
+            return `selected`
+        } else {
+            return ''
+        }
+    }
+    //Hates it but it works
+    
+    const getPostsByDate = (userId) => {
+        const posts = getPosts()
+        const postsByUser = posts.filter(post => post.userId === userId)
+        
+        const userPostsByYearArray = postsByUser.map(userPost => {
+            const [,,postYear] = userPost.date.split("/")
+            return parseInt(postYear)
+        })
+
+        const userPostsofAllTime = userPostsByYearArray.length
+        const userPostsof2022 = userPostsByYearArray.filter(postYear => postYear >= 2022)
+        const userPostsof2023 = userPostsByYearArray.filter(postYear => postYear === 2023)
+
+        if (selectedYear === 2021) {
+            return userPostsofAllTime
+        } else if (selectedYear === 2022) {
+            return userPostsof2022.length
+        } else if (selectedYear === 2023 ) {
+            return userPostsof2023.length
+        } else {
+            return ""
+        }
+    
+    }
 const isChecked = () => {
     if (applicationState.checkedFavorites === true) {
-        return `checked`
+        return "checked class='checked'"
     } else {
-        return ''
+        return 'class="empty"'
     }
 }
 const displayYearFilter = () => {
@@ -45,16 +79,23 @@ return `
         <label for="postsByYear">Posts since</label>
         <select id="timeSincePost">
             <option value="0">Choose...</option>
-            <option value="1">2021</option>
-            <option value="2">2022</option>
-            <option value="3">2023</option>
+            <option ${isYearSelected(2021)} value="2021">2021</option>
+            <option ${isYearSelected(2022)} value="2022">2022</option>
+            <option ${isYearSelected(2023)} value="2023">2023</option>
         </select>
     </div>
-
+    <div id="postsByUserDate">${getPostsByDate(chosenUserId)}</div>
     <div>Show only favorites <input type="checkbox" id="showFavorites" value="${currentUser}" ${isChecked()}/></div>
 </div>`   
 }
 
+addEventListener("change", event => {
+    if (event.target.id === "timeSincePost") {
+        const yearId = document.querySelector("#timeSincePost").value
+        setYear(parseInt(yearId))
+        dispatchEvent(new CustomEvent("stateChanged")) 
+    }
+})
 
 addEventListener("change", event => {
     if (event.target.id === "footerUser") {
@@ -65,15 +106,13 @@ addEventListener("change", event => {
     }
 })
 
-
 addEventListener("change", event => {
     if (event.target.id === "showFavorites") {
-        console.log("this is firing")
-        setCheckedFavorites()
+        if (event.target.className === "empty") {
+            setCheckedFavorites()
+        } else { 
+            applicationState.checkedFavorites = false
+        }
         dispatchEvent(new CustomEvent("stateChanged"))
-    } /* else if (event.target.class === "checked") {
-        console.log("this is also firing")
-        applicationState.checkedFavorites = false
-        dispatchEvent(new CustomEvent("stateChanged"))
-    } */
+    }
 })

@@ -6,6 +6,7 @@ export const applicationState = {
     currentUser: {},
     chosenUser: {},
     checkedFavorites: false,
+    chosenYear: null,
     feed: {
         chosenUser: null,
         displayFavorites: false,
@@ -136,4 +137,8 @@ export const setChosenUser = (id) => {
 
 export const setCheckedFavorites = () => {
     applicationState.checkedFavorites = true
+}
+
+export const setYear = (year) => {
+    applicationState.chosenYear = year
 }
