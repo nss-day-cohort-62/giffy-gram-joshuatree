@@ -10,10 +10,11 @@ export const GiffyGram = () => {
     // Show main main UI
     return `
     ${NavBar()}
-    <h1>Giffygram</h1>
+    <div class="giffygram__feed">
     ${MessageForm()}
     ${PostEntry()}
     ${PostList()}
+    </div>
     ${Footer()}`
 }
 

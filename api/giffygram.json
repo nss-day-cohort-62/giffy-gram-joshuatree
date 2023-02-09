@@ -117,6 +117,12 @@
       "receiverId": 4,
       "content": "Hey Neil!\nBye Neil!",
       "id": 2
+    },
+    {
+      "senderId": 6,
+      "receiverId": 4,
+      "content": "Hi!",
+      "id": 3
     }
   ]
 }
