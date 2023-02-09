@@ -3,7 +3,7 @@ import { getUsers, sendPost } from "../data/provider.js";
 export const PostEntry = () => {
     
     return `
-    <button id="formV">Post Your Gif</button>
+    <button class="miniMode" id="formV">Post Your Gif</button>
     <div id="postForm" style="display:none">
             <form>
                 <fieldset>
