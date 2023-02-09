@@ -1,4 +1,4 @@
-import { getFavorites, getPosts, getUsers, sendFavorite, deleteFave, setChosenUser, applicationState } from "../data/provider.js";
+import { getFavorites, getPosts, getUsers, sendFavorite, deleteFave, setChosenUser, applicationState, deletePost } from "../data/provider.js";
 import { PostEntry } from "./PostEntry.js";
 import { MessageForm } from "../message/MessageForm.js";
 
@@ -62,6 +62,14 @@ export const PostList = () => {
         }
     }
 
+    const addTrashCan = (post) => {
+        if (post.userId === currentUser) {
+            return `<img alt="trashcan" src="../images/block.svg" class="actionIcon" id="blockPost--${post.id}" />`
+        } else {
+            return ""
+        }
+    }
+
     if (chosenUserId) {
         return postsByUser(chosenUserId)
     } else if (applicationState.checkedFavorites === true) {
@@ -69,14 +77,21 @@ export const PostList = () => {
     } else {
         return `<div class="postList">
 
-        ${posts.map(post => {
+        ${posts
+            .sort((a, b) => {
+                let dA = new Date(a.date)
+                let dB = new Date(b.date)
+
+                return dB - dA
+            })
+            .map(post => {
             return `
             <div class="post" id="post--${post.id}">
             <h3>${post.title}</h3>
             <img src="${post.url}" alt="A gif" class="post__image" />
             <p>${post.story}</p>
             <p>Posted by ${matchPostToUser(post)} on ${post.date}</p>
-            <div class="post__actions"><img ${changeFavoriteColor(post)} id="favorite--${post.id}"></div>
+            <div class="post__actions"><img ${changeFavoriteColor(post)} id="favorite--${post.id}">${addTrashCan(post)}</div>
             </div>`
         }).join("")}
         </div > `}
@@ -152,3 +167,11 @@ addEventListener(
         }
     }
 )
+
+addEventListener("click", clickEvent => {
+    if (clickEvent.target.id.startsWith("blockPost")) {
+        const [, postId] = clickEvent.target.id.split("--")
+        deletePost(postId)
+        dispatchEvent(new CustomEvent("stateChanged"))
+    }
+})

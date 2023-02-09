@@ -4,7 +4,7 @@ export const PostEntry = () => {
     
     return `
     <button class="miniMode" id="formV">Post Your Gif</button>
-    <div id="postForm" style="display:none">
+    <div class="newPost" id="postForm" style="display:none">
             <form>
                 <fieldset>
                     <label for="title">Title:</label>
