@@ -8,12 +8,22 @@ export const PostList = () => {
     const favorites = getFavorites()
     const currentUser = parseInt(localStorage.getItem("gg_user"))
     const chosenUserId = applicationState.chosenUser.userId
-
+    const searchResult = applicationState.searchString
     const matchPostToUser = (post) => {
         const matchedUser = users.find(user => user.id === post.userId) 
         return `<a class="filterPostByUser" id="userfilter--${matchedUser.id}">${matchedUser.name}</a>`
     }
 
+    const displaySearchResults = () => {
+        if (searchResult) {
+            const searchMatches = posts.filter(post => post.title.toLowerCase().includes(searchResult))
+            return searchMatches.map(match => {
+                return `<a href="#post--${match.id}">${match.title}</a>`
+            })
+        } else {
+            return ""
+        }
+    }
 
     const postsByUser = (matchedUserId) => {
         const userPosts = posts.filter(post => post.userId === matchedUserId)
@@ -67,7 +77,9 @@ export const PostList = () => {
     } else if (applicationState.checkedFavorites === true) {
         return matchedUserFavorites(currentUser)
     } else {
-        return `<div class="postList">
+        return `
+        ${displaySearchResults()}
+        <div class="postList">
 
         ${posts.map(post => {
             return `
@@ -79,7 +91,7 @@ export const PostList = () => {
             </div>`
         }).join("")}
         </div > `}
-    }
+}
 
 /* return `
  ${chosenUserId ? postsByUser(chosenUserId) :
@@ -114,14 +126,12 @@ addEventListener(
             const [, postFaveId] = clickEvent.target.id.split("--")
             const userFave = parseInt(localStorage.getItem("gg_user"))
 
-            
             const favoriteToSendToAPI = {
                 userId: userFave,
                 postId: parseInt(postFaveId)
             }
             
-            sendFavorite(favoriteToSendToAPI)
-                        
+            sendFavorite(favoriteToSendToAPI)                        
             dispatchEvent(new CustomEvent("stateChanged"))
                     
             
@@ -142,7 +152,6 @@ addEventListener(
                }
             })
             
-
             deleteFave(matchedFave.id)
             dispatchEvent(new CustomEvent("stateChanged"))
 

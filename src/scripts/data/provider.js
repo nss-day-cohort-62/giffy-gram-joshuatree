@@ -6,7 +6,12 @@ export const applicationState = {
     currentUser: {},
     chosenUser: {},
     checkedFavorites: false,
+    messages: [],
+    favorites: [],
+    posts: [],
+    users: [],
     chosenYear: null,
+    searchString: "skele",
     feed: {
         chosenUser: null,
         displayFavorites: false,
@@ -142,3 +147,8 @@ export const setCheckedFavorites = () => {
 export const setYear = (year) => {
     applicationState.chosenYear = year
 }
+
+export const setSearch = (search) => {
+    applicationState.searchString = search
+}
+

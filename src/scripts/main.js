@@ -1,7 +1,7 @@
 import { GiffyGram } from "./GiffyGram.js"
 import { LoginForm } from "./auth/Login.js"
 import { MessageList } from "./friends/DirectMessage.js"
-import { fetchFavorites, fetchMessages, fetchPosts, fetchUsers } from "./data/provider.js"
+import { applicationState, fetchFavorites, fetchMessages, fetchPosts, fetchUsers } from "./data/provider.js"
 
 const applicationElement = document.querySelector(".giffygram")
 
