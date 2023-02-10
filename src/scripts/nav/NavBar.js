@@ -1,4 +1,5 @@
-import { applicationState, getMessages } from "../data/provider.js"
+
+import { applicationState, getMessages, setSearch } from "../data/provider.js"
 
 export const NavBar = () => {
     // return `
@@ -25,6 +26,13 @@ export const NavBar = () => {
             <div class="navigation__item navigation__name">
                 Giffygram
             </div>
+            <div class="formS">
+            <form class="FIND">
+                <input type="text" id="search" placeholder="search..." />
+                <button type="button" id="btn__submitSearch" class="submit-results">submit</button> 
+                <button type="button" id="clear" class="clear-results">clear</button>
+            </form>
+            </div>
             <div class="navigation__item navigation__message">
                 <img id="directMessageIcon" src="/images/fountain-pen.svg" alt="Direct message">
                 <div class="notification__count" id="loadMessages">
@@ -38,6 +46,23 @@ export const NavBar = () => {
     `
 }
 
+ 
+
+// if you want a button to do something other than "submit" always do type="button"
+addEventListener("click", (clickEvent) => {
+    if (clickEvent.target.id === "btn__submitSearch") {
+        const searchQuery = document.querySelector("#search").value.toLowerCase()
+        setSearch(searchQuery)
+        dispatchEvent(new CustomEvent("stateChanged"))
+    }
+})
+
+addEventListener("click", (clickEvent) => {
+    if (clickEvent.target.id === "clear") {
+        dispatchEvent(new CustomEvent("stateChanged"))
+    }
+})
+
 addEventListener("click", (clickEvent) => {
     if (clickEvent.target.id === "logout") {
         localStorage.removeItem("gg_user")
@@ -47,6 +72,7 @@ addEventListener("click", (clickEvent) => {
 
 addEventListener("click", clickEvent => {
     if (clickEvent.target.id === "loadMessages") {
+        applicationState.searchString = null
         dispatchEvent(new CustomEvent("loadMessages"))
     }
 })
@@ -55,6 +81,7 @@ addEventListener("click", clickEvent => {
     if (clickEvent.target.id === "logo") {
         applicationState.chosenUser = {}
         applicationState.checkedFavorites = false
+        applicationState.searchString = null
         dispatchEvent(new CustomEvent("goHome"))
     }
 })
