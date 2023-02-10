@@ -42,6 +42,7 @@ addEventListener("click", (clickEvent) => {
 
 addEventListener("click", clickEvent => {
     if (clickEvent.target.id === "loadMessages") {
+        applicationState.searchString = null
         dispatchEvent(new CustomEvent("loadMessages"))
     }
 })
@@ -50,6 +51,7 @@ addEventListener("click", clickEvent => {
     if (clickEvent.target.id === "homeButton") {
         applicationState.chosenUser = {}
         applicationState.checkedFavorites = false
+        applicationState.searchString = null
         dispatchEvent(new CustomEvent("goHome"))
     }
 })

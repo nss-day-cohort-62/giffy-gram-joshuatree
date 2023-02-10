@@ -11,7 +11,7 @@ export const applicationState = {
     posts: [],
     users: [],
     chosenYear: null,
-    searchString: "skele",
+    searchString: null,
     feed: {
         chosenUser: null,
         displayFavorites: false,

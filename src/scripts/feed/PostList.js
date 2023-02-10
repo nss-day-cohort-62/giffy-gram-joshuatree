@@ -18,8 +18,8 @@ export const PostList = () => {
         if (searchResult) {
             const searchMatches = posts.filter(post => post.title.toLowerCase().includes(searchResult))
             return searchMatches.map(match => {
-                return `<a href="#post--${match.id}">${match.title}</a>`
-            })
+                return `<li><a href="#post--${match.id}">${match.title}</a></li>`
+            }).join("")
         } else {
             return ""
         }
@@ -78,7 +78,7 @@ export const PostList = () => {
         return matchedUserFavorites(currentUser)
     } else {
         return `
-        ${displaySearchResults()}
+        <ul>${displaySearchResults()}</ul>
         <div class="postList">
 
         ${posts.map(post => {
