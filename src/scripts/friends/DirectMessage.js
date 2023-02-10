@@ -14,10 +14,10 @@ export const MessageList = () => {
 
     return `
     ${NavBar()}
-    <div class="DMList">
+    <div class="messages">
         ${currentUserMessages.map(message => {
             return `
-            <div class="DM">
+            <div class="message">
                 From: 
                 ${matchSender(message)}
                 <p>${message.content}</p>

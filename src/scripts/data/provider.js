@@ -73,6 +73,13 @@ export const sendPost = (newPost) => {
         })
 }
 
+export const deletePost = (postId) => {
+    return fetch(`${apiURL}/posts/${postId}`, {method: "DELETE"})
+        .then(() => {
+            dispatchEvent(new CustomEvent("stateChanged"))
+        })
+}
+
 export const sendFavorite = (newFavorite) => {
     const fetchOptions = {
         method: "POST",

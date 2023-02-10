@@ -4,7 +4,7 @@ export const MessageForm = () => {
     const users = getUsers()
 
     return `
-        <div id="messageForm" style="display:none">
+        <div id="messageForm" class="directMessage" style="display:none">
             <form>
                 <fieldset>
                     <label for="recipient">Recipient:</label>
@@ -44,7 +44,7 @@ addEventListener("click", clickEvent => {
 })
 
 addEventListener("click", clickEvent => {
-    if ((clickEvent.target.id === "createMessage") || (clickEvent.target.id === "cancelMessageButton")) {
+    if ((clickEvent.target.id === "directMessageIcon") || (clickEvent.target.id === "cancelMessageButton")) {
     const form = document.getElementById("messageForm")
     if (form.style.display === "none") {
         form.style.display = "block"

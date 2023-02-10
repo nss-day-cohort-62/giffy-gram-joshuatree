@@ -1,4 +1,4 @@
-import { getFavorites, getPosts, getUsers, sendFavorite, deleteFave, setChosenUser, applicationState } from "../data/provider.js";
+import { getFavorites, getPosts, getUsers, sendFavorite, deleteFave, setChosenUser, applicationState, deletePost } from "../data/provider.js";
 import { PostEntry } from "./PostEntry.js";
 import { MessageForm } from "../message/MessageForm.js";
 
@@ -11,7 +11,7 @@ export const PostList = () => {
     const searchResult = applicationState.searchString
     const matchPostToUser = (post) => {
         const matchedUser = users.find(user => user.id === post.userId) 
-        return `<a class="filterPostByUser" id="userfilter--${matchedUser.id}">${matchedUser.name}</a>`
+        return `<a class="filterPostByUser fakeLink" id="userfilter--${matchedUser.id}">${matchedUser.name}</a>`
     }
 
     const displaySearchResults = () => {
@@ -36,7 +36,7 @@ export const PostList = () => {
             return `
             <div class="post" id="post--${post.id}">
                 <h3>${post.title}</h3>
-                <img src="${post.url}" alt="A gif" />
+                <img src="${post.url}" alt="A gif" class="post__image" />
                 <p>${post.story}</p>
                 <p>Posted by ${matchingUser.name} on ${post.date}</p> 
             </div>`
@@ -53,7 +53,7 @@ export const PostList = () => {
             return `
             <div class="post" id="post--${userFavePost.id}">
                 <h3>${userFavePost.title}</h3>
-                <img src="${userFavePost.url}" alt="A gif" />
+                <img src="${userFavePost.url}" alt="A gif" class="post__image"/>
                 <p>${userFavePost.story}</p>
                 <p>Posted by ${currentUserObject.name} on ${userFavePost.date}</p> 
             </div>`
@@ -72,6 +72,14 @@ export const PostList = () => {
         }
     }
 
+    const addTrashCan = (post) => {
+        if (post.userId === currentUser) {
+            return `<img alt="trashcan" src="../images/block.svg" class="actionIcon" id="blockPost--${post.id}" />`
+        } else {
+            return ""
+        }
+    }
+
     if (chosenUserId) {
         return postsByUser(chosenUserId)
     } else if (applicationState.checkedFavorites === true) {
@@ -81,13 +89,21 @@ export const PostList = () => {
         <ul>${displaySearchResults()}</ul>
         <div class="postList">
 
-        ${posts.map(post => {
+        ${posts
+            .sort((a, b) => {
+                let dA = new Date(a.date)
+                let dB = new Date(b.date)
+
+                return dB - dA
+            })
+            .map(post => {
             return `
             <div class="post" id="post--${post.id}">
             <h3>${post.title}</h3>
-            <img src="${post.url}" alt="A gif" />
+            <img src="${post.url}" alt="A gif" class="post__image" />
             <p>${post.story}</p>
-            <p>Posted by ${matchPostToUser(post)} on ${post.date}<img ${changeFavoriteColor(post)} id="favorite--${post.id}"></p> 
+            <p>Posted by ${matchPostToUser(post)} on ${post.date}</p>
+            <div class="post__actions"><img ${changeFavoriteColor(post)} id="favorite--${post.id}">${addTrashCan(post)}</div>
             </div>`
         }).join("")}
         </div > `}
@@ -160,3 +176,11 @@ addEventListener(
         }
     }
 )
+
+addEventListener("click", clickEvent => {
+    if (clickEvent.target.id.startsWith("blockPost")) {
+        const [, postId] = clickEvent.target.id.split("--")
+        deletePost(postId)
+        dispatchEvent(new CustomEvent("stateChanged"))
+    }
+})
