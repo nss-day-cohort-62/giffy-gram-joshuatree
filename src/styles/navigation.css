@@ -64,3 +64,18 @@
 #directMessageIcon {
     cursor: pointer;
 }
+
+.searchBar {
+    margin-top: 5px;
+    margin-left: 15px;
+
+}
+
+#search {
+    border-radius: 0.5rem;
+    padding-left: 5px
+}
+
+.searchBtn {
+    padding: 0 0.3rem;
+}

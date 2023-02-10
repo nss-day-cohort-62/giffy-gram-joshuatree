@@ -27,10 +27,10 @@ export const NavBar = () => {
                 Giffygram
             </div>
             <div class="formS">
-            <form class="FIND">
+            <form class="searchBar navigation__item">
                 <input type="text" id="search" placeholder="search..." />
-                <button type="button" id="btn__submitSearch" class="submit-results">submit</button> 
-                <button type="button" id="clear" class="clear-results">clear</button>
+                <button type="button" id="btn__submitSearch" class="submit-results searchBtn">submit</button> 
+                <button type="button" id="clear" class="clear-results searchBtn">clear</button>
             </form>
             </div>
             <div class="navigation__item navigation__message">
